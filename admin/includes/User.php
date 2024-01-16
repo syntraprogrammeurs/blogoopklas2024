@@ -46,7 +46,21 @@ class User{
         $object_properties = get_object_vars($this);
         return array_key_exists($the_attribute, $object_properties);
     }
+    /*verify user*/
+    public static function verify_user($username, $password){
+        global $database;
+        $username = $database->escape_string($username);
+        $password= $database->escape_string($password);
 
+        //SELECT * FROM users WHERE username = ? and password = ? LIMIT 1
 
+        $sql = "SELECT * FROM users WHERE ";
+        $sql .= "username = ? ";
+        $sql .= "AND password = ? ";
+        $sql .= "LIMIT 1";
+
+        $the_result_array = self::find_this_query($sql,[$username,$password]);
+        return !empty($the_result_array) ? array_shift($the_result_array) : false;
+    }
 }
 ?>

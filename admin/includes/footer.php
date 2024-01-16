@@ -22,7 +22,9 @@
 <!-- Need: Apexcharts -->
 <script src="../admin/assets/extensions/apexcharts/apexcharts.min.js"></script>
 <script src="../admin/assets/static/js/pages/dashboard.js"></script>
-
+<?php
+    ob_end_flush()
+?>
 </body>
 
 </html>

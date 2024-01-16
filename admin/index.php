@@ -6,6 +6,9 @@
 //include_once
 //require_once
     include("includes/header.php");
+    if(!$session->is_signed_in()){
+        header("location:login.php");
+    }
     include("includes/sidebar.php");
     include("includes/content-top.php");
     include("includes/content.php");

@@ -1,4 +1,7 @@
-<?php include ("init.php"); ?>
+<?php
+    require_once ("init.php");
+    ob_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 
