@@ -48,5 +48,16 @@ include("includes/content-top.php");
         </div>
     </div>
 <?php
+    $allUsers = User::find_all_users();
+    $user = new User();
+    $user->username = "test";
+    $user->password = "test";
+    $user->first_name = "test";
+    $user->last_name = "test";
+    $user->create();
+
+?>
+
+<?php
 include("includes/footer.php");
 ?>
