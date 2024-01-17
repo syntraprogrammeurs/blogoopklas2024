@@ -1,9 +1,25 @@
 <?php
-$user = User::find_by_id(11);
-$user->username = "usernamesss";
-$user->password = "pwdsss";
-$user->last_name = "last_namesss";
-$user->first_name = "first_namesss";
+/*create*/
+//    $photo = new Photo();
+//    $photo->title = "Sam";
+//    $photo->description = "Lorem ipsum";
+//    $photo->filename = "image.jpg";
+//    $photo->type = "jpg";
+//    $photo->size = "15";
+//    $photo->save();
+/*update*/
+    $photo = Photo::find_by_id(2);
+    $photo->title = "Tom";
+    $photo->description = "Lorem ipsum";
+    $photo->filename = "image.jpg";
+    $photo->type = "jpg";
+    $photo->size = "15";
+    $photo->save();
 
-$user->save();
+/* alle photos */
+    $photos = Photo::find_all();
+    foreach($photos as $photo){
+        echo $photo->title . "<br>";
+    }
+
 ?>
