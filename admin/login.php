@@ -18,9 +18,11 @@ if(isset($_POST['submit'])){
         $session->login($user_found);
         header("Location:index.php");
     }else{
-        $username = "";
-        $password="";
+       $the_message="your password or username FAILED!";
     }
+}else{
+    $username="";
+    $password="";
 }
 ?>
 <div class="container-fluid">
@@ -31,7 +33,12 @@ if(isset($_POST['submit'])){
             </div>
             <h1 class="auth-title">Log in.</h1>
             <p class="auth-subtitle mb-5">Log in with your data that you entered during registration.</p>
-            <h2 class="bg-danger"><?php echo $the_message; ?></h2>
+            <div class="alert alert-danger d-flex align-items-center" role="alert">
+                <svg class="bi flex-shrink-0 me-2" role="img" aria-label="Danger:"><use xlink:href="#exclamation-triangle-fill"/></svg>
+                <div>
+                    <?php echo $the_message; ?>
+                </div>
+            </div>
             <form action="" method="POST">
                 <div class="form-group position-relative has-icon-left mb-4">
                     <input type="text" class="form-control form-control-xl" placeholder="Username" name="username">
