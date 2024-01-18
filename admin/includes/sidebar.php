@@ -101,6 +101,28 @@
                     <li
                             class="sidebar-item  has-sub">
                         <a href="#" class='sidebar-link'>
+                            <i class="bi bi-camera2"></i>
+                            <span>Photos</span>
+                        </a>
+
+                        <ul class="submenu ">
+                            <li class="submenu-item  ">
+                                <a href="photos.php" class="submenu-link">All Photos</a>
+
+                            </li>
+
+                            <li class="submenu-item  ">
+                                <a href="#" class="submenu-link">Add Photo</a>
+
+                            </li>
+
+                        </ul>
+
+
+                    </li>
+                    <li
+                            class="sidebar-item  has-sub">
+                        <a href="#" class='sidebar-link'>
                             <i class="bi bi-chat-square-text"></i>
                             <span>Comments</span>
                         </a>

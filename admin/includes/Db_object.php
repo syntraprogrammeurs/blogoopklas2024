@@ -28,7 +28,11 @@ class Db_object{
         return array_key_exists($the_attribute, $object_properties);
     }
     public static function find_all(){
-        $result = static::find_this_query("SELECT * FROM " . static::$table_name . " ");
+        $result = static::find_this_query("SELECT * FROM " . static::$table_name . " WHERE deleted_at IS NULL OR deleted_at = '0000-00-00 00:00:00'");
+        return $result;
+    }
+    public static function find_all_soft_deletes(){
+        $result = static::find_this_query("SELECT * FROM " . static::$table_name . " WHERE deleted_at IS NOT NULL AND deleted_at != '0000-00-00 00:00:00'");
         return $result;
     }
     public static function find_by_id($id){
@@ -133,6 +137,19 @@ class Db_object{
         $params = [$escaped_id];
 
         //execute
+        $database->query($sql,$params);
+    }
+
+    public function soft_delete(){
+        global $database;
+        $table = static::$table_name;
+        //update deleted_at field with current datetime
+        $deleted_at = date('Y-m-d H:i:s');
+        $escaped_id = $database->escape_string($this->id);
+        $sql = "UPDATE $table SET deleted_at = '$deleted_at' WHERE id = ?";
+        //bind the parameter (?) with the id
+        $params = [$escaped_id];
+        //execute the statement
         $database->query($sql,$params);
     }
 

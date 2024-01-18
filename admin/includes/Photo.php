@@ -8,6 +8,7 @@ class Photo extends Db_object{
     public $filename;
     public $type;
     public $size;
+    public $deleted_at;
 
     public $tmp_path;
     public $upload_directory = "assets/images/photos";
@@ -89,6 +90,13 @@ class Photo extends Db_object{
                 $this->errors[]= "This folder has no write rights";
                 return false;
             }
+        }
+    }
+    public function picture_path(){
+        if($this->filename && file_exists($this->upload_directory.DS.$this->filename)){
+            return $this->upload_directory.DS.$this->filename;
+        }else{
+            return 'https://via.placeholder.com/300';
         }
     }
 }

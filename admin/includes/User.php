@@ -6,6 +6,7 @@ class User extends Db_Object{
     public $password;
     public $first_name;
     public $last_name;
+    public $deleted_at;
     protected static $table_name = 'users';
 
     /*get properties method*/
