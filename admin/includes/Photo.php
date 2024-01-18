@@ -21,7 +21,6 @@ class Photo extends Db_object{
         UPLOAD_ERR_NO_TMP_DIR=> "Missing a temporary folder",
         UPLOAD_ERR_CANT_WRITE=>"Failed to write to disk",
         UPLOAD_ERR_EXTENSION=>"A php extension stopped your upload",
-        UPLOAD_
     );
 
     protected static $table_name = "photos";
@@ -47,13 +46,49 @@ class Photo extends Db_object{
             $this->errors[]= $this->upload_errors_array['error'];
             return false;
         }else{
+            //image.jpg
             $date = date('Y_m_d-H-i-s');
             $without_extension = pathinfo(basename($file['name']),PATHINFO_FILENAME);
             $extension = pathinfo(basename($file['name']),PATHINFO_EXTENSION);
             $this->filename = $without_extension.$date.'.'.$extension;
             $this->type = $file['type'];
             $this->size = $file['size'];
-            $this->tmp_path = $file['tmp_path'];
+            $this->tmp_path = $file['tmp_name'];
+        }
+    }
+
+    public function save(){
+        $target_path = SITE_ROOT.DS."admin".DS.$this->upload_directory.DS.$this->filename;
+        if($this->id){
+            //schrijft weg naar de tabel photos
+            $this->update();
+            //fysisch de foto naar het target_path wegschrijven
+            if(move_uploaded_file($this->tmp_path,$target_path)){
+                if($this->create()){
+                    unset($this->tmp_path);
+                    return true;
+                }
+            }
+        }else{
+            if(!empty($this->errors)){
+                return false;
+            }
+            if(empty($this->filename) || empty($this->tmp_path)){
+                $this->errors[]= "File not available";
+                return false;
+            }
+            if(file_exists($target_path)){
+                $this->errors[]= "File {$this->filename} EXISTS!";
+            }
+            if(move_uploaded_file($this->tmp_path, $target_path)){//upload in de images map(photos)
+                if($this->create()){//aanmaken in de database
+                    unset($this->tmp_path);
+                    return true;
+                }
+            }else{
+                $this->errors[]= "This folder has no write rights";
+                return false;
+            }
         }
     }
 }
