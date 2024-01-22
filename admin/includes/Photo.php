@@ -9,6 +9,7 @@ class Photo extends Db_object{
     public $type;
     public $size;
     public $deleted_at;
+    public $alternate_text='';
 
     public $tmp_path;
     public $upload_directory = "assets/images/photos";
@@ -35,12 +36,15 @@ class Photo extends Db_object{
             'description'=> $this->description,
             'filename'=> $this->filename,
             'type'=> $this->type,
-            'size'=> $this->size
+            'size'=> $this->size,
+            'deleted_at'=>$this->deleted_at,
+            'alternate_text'=>$this->alternate_text,
         ];
     }
 
     public function set_file($file){
-        if(empty($file) || !$file || !is_array($file)){
+
+        if(empty($file) || !$file || !is_array($file) || !$file['name']){
            $this->errors[]=  "No file uploaded";
            return false;
         }elseif($file['error'] != 0){
@@ -48,6 +52,7 @@ class Photo extends Db_object{
             return false;
         }else{
             //image.jpg
+
             $date = date('Y_m_d-H-i-s');
             $without_extension = pathinfo(basename($file['name']),PATHINFO_FILENAME);
             $extension = pathinfo(basename($file['name']),PATHINFO_EXTENSION);
@@ -63,13 +68,16 @@ class Photo extends Db_object{
         if($this->id){
             //schrijft weg naar de tabel photos
             $this->update();
-            //fysisch de foto naar het target_path wegschrijven
-            if(move_uploaded_file($this->tmp_path,$target_path)){
-                if($this->create()){
-                    unset($this->tmp_path);
-                    return true;
+            if($this->tmp_path){
+                //fysisch de foto naar het target_path wegschrijven
+                if(move_uploaded_file($this->tmp_path,$target_path)){
+//                    if($this->create()){
+                        unset($this->tmp_path);
+                        return true;
+//                    }
                 }
             }
+
         }else{
             if(!empty($this->errors)){
                 return false;
@@ -82,10 +90,10 @@ class Photo extends Db_object{
                 $this->errors[]= "File {$this->filename} EXISTS!";
             }
             if(move_uploaded_file($this->tmp_path, $target_path)){//upload in de images map(photos)
-                if($this->create()){//aanmaken in de database
+               if($this->create()){//aanmaken in de database
                     unset($this->tmp_path);
                     return true;
-                }
+               }
             }else{
                 $this->errors[]= "This folder has no write rights";
                 return false;
@@ -97,6 +105,13 @@ class Photo extends Db_object{
             return $this->upload_directory.DS.$this->filename;
         }else{
             return 'https://via.placeholder.com/300';
+        }
+    }
+
+    public function update_photo(){
+        if(!empty($this->filename)){
+            $target_path = SITE_ROOT.DS.'admin'.DS.$this->picture_path();
+            return unlink($target_path) ? true : false;
         }
     }
 }

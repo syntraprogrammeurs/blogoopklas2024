@@ -111,6 +111,7 @@ $photosoftdeletes = Photo::find_all_soft_deletes();
                                         <th>FILENAME</th>
                                         <th>TYPE</th>
                                         <th>SIZE</th>
+                                        <th>ALT</th>
                                         <th>DELETED_AT</th>
                                         <th>ACTIONS</th>
                                     </tr>
@@ -129,6 +130,9 @@ $photosoftdeletes = Photo::find_all_soft_deletes();
                                             <td><?php echo $photo->filename; ?></td>
                                             <td><?php echo $photo->type; ?></td>
                                             <td><?php echo $photo->size; ?></td>
+                                            <td>
+                                                <?php echo $photo->alternate_text ? $photo->alternate_text : "blanco"; ?>
+                                            </td>
                                             <td><?php echo $photo->deleted_at; ?></td>
                                             <td>
                                                 <a href="delete_photo.php?id=<?php echo $photo->id; ?>">
@@ -153,6 +157,7 @@ $photosoftdeletes = Photo::find_all_soft_deletes();
                                             <th>FILENAME</th>
                                             <th>TYPE</th>
                                             <th>SIZE</th>
+                                            <th>ALT</th>
                                             <th>DELETED_AT</th>
                                             <th>ACTIONS</th>
                                         </tr>
@@ -171,6 +176,7 @@ $photosoftdeletes = Photo::find_all_soft_deletes();
                                                 <td><?php echo $photosoftdelete->filename; ?></td>
                                                 <td><?php echo $photosoftdelete->type; ?></td>
                                                 <td><?php echo $photosoftdelete->size; ?></td>
+                                                <td><?php echo $photosoftdelete->alternate_text; ?></td>
                                                 <td><?php echo $photosoftdelete->deleted_at; ?></td>
                                                 <td>
                                                     <i class="bi bi-arrow-counterclockwise" style="cursor: pointer; color:green;">

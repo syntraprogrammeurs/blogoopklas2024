@@ -1,8 +1,9 @@
 <?php
 class Session{
     /* properties */
-    private $signed_in;
+    private $signed_in=false;
     public $user_id;
+    private $message;
     /* methods */
     private function check_the_login(){
         if(isset($_SESSION['user_id'])){

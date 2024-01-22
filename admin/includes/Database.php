@@ -75,11 +75,13 @@ class Database
         }
     }
 
-    public function escape_string($string)
-    {
-        $escaped_string = $this->connection->real_escape_string($string);
-        return $escaped_string;
+    public function escape_string($string) {
+        if(is_string($string)) {
+            return $this->connection->real_escape_string($string);
+        }
+        return $string;
     }
+
 
     /*constructors*/
     function __construct()
