@@ -58,8 +58,16 @@ include("includes/sidebar.php");
                                 <!-- Voeg de checkbox toe met een unieke ID -->
 
                                 <div class="form-check form-switch">
-                                    <input class="form-check-input" type="checkbox" id="deleteSwitch">
+                                    <input class="form-check-input" type="checkbox"
+                                           id="deleteSwitch<?php echo $user->id; ?>"
+                                        <?php echo ($user->deleted_at == '0000-00-00 00:00:00') ? 'checked' : ''; ?>>
                                 </div>
+
+
+
+
+
+
 
                             </td>
                         </tr>
