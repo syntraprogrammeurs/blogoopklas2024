@@ -27,6 +27,7 @@ class Db_object{
         $object_properties = get_object_vars($this);
         return array_key_exists($the_attribute, $object_properties);
     }
+
     public static function find_all(){
         $result = static::find_this_query("SELECT * FROM " . static::$table_name . " WHERE deleted_at IS NULL OR deleted_at = '0000-00-00 00:00:00'");
         return $result;
@@ -145,8 +146,10 @@ class Db_object{
         $table = static::$table_name;
         //update deleted_at field with current datetime
         $deleted_at = date('Y-m-d H:i:s');
+
         $escaped_id = $database->escape_string($this->id);
         $sql = "UPDATE $table SET deleted_at = '$deleted_at' WHERE id = ?";
+
         //bind the parameter (?) with the id
         $params = [$escaped_id];
         //execute the statement

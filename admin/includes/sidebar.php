@@ -68,7 +68,7 @@
                             </li>
 
                             <li class="submenu-item  ">
-                                <a href="#" class="submenu-link">Add User</a>
+                                <a href="add_user.php" class="submenu-link">Add User</a>
 
                             </li>
 

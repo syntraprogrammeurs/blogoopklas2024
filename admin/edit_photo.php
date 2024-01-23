@@ -65,7 +65,7 @@ if(empty($_GET['id'])){
                                             <label for="description">Description</label>
                                         </div>
                                         <div class="col-md-8 form-group">
-                                            <textarea placeholder="description" name="description" id="description" class="form-control" cols="100%">
+                                            <textarea placeholder="description" name="description" id="editor" class="form-control" cols="100%">
                                                 <?php echo $photo->description; ?>
                                             </textarea>
                                         </div>

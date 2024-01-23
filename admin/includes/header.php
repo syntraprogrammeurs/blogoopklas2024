@@ -20,4 +20,5 @@
     <link rel="stylesheet" href="../admin/assets/compiled/css/app.css">
     <link rel="stylesheet" href="../admin/assets/compiled/css/app-dark.css">
     <link rel="stylesheet" href="../admin/assets/compiled/css/iconly.css">
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
 </head>
