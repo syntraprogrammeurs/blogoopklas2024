@@ -1,9 +1,12 @@
 <?php
 include("includes/header.php");
+if(!$session->is_signed_in()){
+    header("location:login.php");
+}
 include("includes/sidebar.php");
-include("includes/content-top.php");
+
 ?>
-    <div class="container-fluid">
+    <div id="main">
         <div class="row">
             <div class="col-12">
                 <div class="d-flex align-items-center justify-content-between">
@@ -20,7 +23,7 @@ include("includes/content-top.php");
                     <tr>
                         <th>ID</th>
                         <th>USERNAME</th>
-                        <th>PASSWORD</th>
+
                         <th>FIRST_NAME</th>
                         <th>LAST_NAME</th>
                         <th>DELETED AT</th>
@@ -41,7 +44,7 @@ include("includes/content-top.php");
                                 </div>
                                 <?php echo $user->username; ?>
                             </td>
-                            <td class="text-bold-500"><?php echo $user->password; ?></td>
+
                             <td><?php echo $user->first_name; ?></td>
                             <td><?php echo $user->last_name; ?></td>
                             <td><?php echo $user->deleted_at; ?></td>

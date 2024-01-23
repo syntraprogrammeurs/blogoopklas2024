@@ -10,7 +10,7 @@ if (!$session->is_signed_in()) {
     header("location:login.php");
 }
 include("includes/sidebar.php");
-include("includes/content-top.php");
+
 if (empty($_GET['id'])) {
     header("Location:users.php");
 }
@@ -29,7 +29,7 @@ if (isset($_POST['updateuser'])) {
 }
 ?>
 
-<div class="container-fluid">
+<div id="main">
     <div class="row">
         <div class="col-12">
             <div id="content">

@@ -55,21 +55,44 @@ class User extends Db_Object{
     }
 
     /*verify user*/
+//    public static function verify_user($username, $password){
+//        global $database;
+//        $username = $database->escape_string($username);
+//        $password= $database->escape_string($password);
+//
+//        //SELECT * FROM users WHERE username = ? and password = ? LIMIT 1
+//
+//        $sql = "SELECT * FROM " . self::$table_name . " WHERE ";
+//        $sql .= "username = ? ";
+//        $sql .= "AND password = ? ";
+//        $sql .= "LIMIT 1";
+//
+//
+//        $the_result_array = self::find_this_query($sql,[$username,$password]);
+//        return !empty($the_result_array) ? array_shift($the_result_array) : false;
+//    }
     public static function verify_user($username, $password){
         global $database;
         $username = $database->escape_string($username);
-        $password= $database->escape_string($password);
 
-        //SELECT * FROM users WHERE username = ? and password = ? LIMIT 1
-
+        // Selecteer de gebruiker op basis van de gebruikersnaam
         $sql = "SELECT * FROM " . self::$table_name . " WHERE ";
-        $sql .= "username = ? ";
-        $sql .= "AND password = ? ";
-        $sql .= "LIMIT 1";
+        $sql .= "username = ? LIMIT 1";
 
-        $the_result_array = self::find_this_query($sql,[$username,$password]);
-        return !empty($the_result_array) ? array_shift($the_result_array) : false;
+        $the_result_array = self::find_this_query($sql, [$username]);
+
+        if(!empty($the_result_array)){
+            $user = array_shift($the_result_array);
+
+            // Nu gebruik je password_verify om het wachtwoord te controleren
+            if(password_verify($password, $user->password)){
+                return $user; // Gebruiker geverifieerd
+            }
+        }
+
+        return false; // Gebruiker niet gevonden of wachtwoord komt niet overeen
     }
+
 
     public function picture_path_and_placeholder(){
         return empty($this->user_image) ? $this->image_placeholder : $this->upload_directory.DS.$this->user_image;

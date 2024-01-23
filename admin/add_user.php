@@ -10,7 +10,7 @@
         header("location:login.php");
     }
     include("includes/sidebar.php");
-    include("includes/content-top.php");
+
     $user = new User();
     if(isset($_POST['adduser'])){
         $user->username = $database->escape_string($_POST['username']);
@@ -24,7 +24,7 @@
     }
     ?>
 
-<div class="container-fluid">
+<div id="main">
     <div class="row">
         <div class="col-12">
             <div id="content">
