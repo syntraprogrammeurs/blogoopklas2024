@@ -52,6 +52,12 @@ include("includes/content-top.php");
                                 <a href="delete_user.php?id=<?php echo $user->id; ?>">
                                     <i class="bi bi-trash text-danger"></i>
                                 </a>
+                                <!-- Voeg de checkbox toe met een unieke ID -->
+
+                                <div class="form-check form-switch">
+                                    <input class="form-check-input" type="checkbox" id="deleteSwitch">
+                                </div>
+
                             </td>
                         </tr>
                     <?php endforeach; ?>

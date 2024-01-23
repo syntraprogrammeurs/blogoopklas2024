@@ -16,7 +16,8 @@
         $user->username = $database->escape_string($_POST['username']);
         $user->first_name = $database->escape_string($_POST['first_name']);
         $user->last_name =$database->escape_string($_POST['last_name']);
-        $user->password = $database->escape_string($_POST['password']);
+        $user->password = password_hash($database->escape_string($_POST['password']), PASSWORD_DEFAULT);
+
         $user->deleted_at = '0000-00-00 00:00:00';
         $user->set_file($_FILES['user_image']);
         $user->save_user_and_image();
