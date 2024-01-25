@@ -101,7 +101,7 @@ class Photo extends Db_object{
         }
     }
     public function picture_path(){
-        if($this->filename && file_exists($this->upload_directory.DS.$this->filename)){
+        if($this->filename && $this->upload_directory.DS.$this->filename !=""){
             return $this->upload_directory.DS.$this->filename;
         }else{
             return 'https://via.placeholder.com/300';

@@ -3,6 +3,7 @@
 class Db_object{
 
     public static function find_this_query($sql, $values = []){
+
         global $database;
         $result = $database->query($sql,$values);
         $the_object_array = [];
